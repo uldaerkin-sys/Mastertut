@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -115,6 +116,7 @@ export default function RootLayout({
         <Footer />
         <MobileActionBar />
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
