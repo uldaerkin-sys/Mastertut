@@ -220,7 +220,7 @@ export default async function ServicePage({ params }: Props) {
                 </span>
                 <span>
                   <ShieldCheck aria-hidden="true" />
-                  Условия гарантии фиксируем
+                  Гарантия от 3 месяцев до 1 года
                 </span>
               </div>
             </div>
