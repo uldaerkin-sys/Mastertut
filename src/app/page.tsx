@@ -91,11 +91,11 @@ export default function Home() {
           <ul className="hero-proof">
             <li>
               <Check aria-hidden="true" />
-              Диагностика до ремонта
+              Опыт ремонта — 12 лет
             </li>
             <li>
               <Check aria-hidden="true" />
-              Согласование работ заранее
+              Диагностика бесплатно при ремонте
             </li>
             <li>
               <Check aria-hidden="true" />
