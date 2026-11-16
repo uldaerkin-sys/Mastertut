@@ -255,6 +255,60 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section reviews-section" id="reviews">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <span className="section-label">Отзывы</span>
+              <h2>Что говорят клиенты</h2>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {[
+              {
+                service: "Ремонт холодильника",
+                text: "Сделали мой холодильник, дали гарантию на 1 год.",
+              },
+              {
+                service: "Ремонт печи",
+                text: "Сделали мою печь, всё работает без проблем.",
+              },
+              {
+                service: "Ремонт кондиционера",
+                text: "Мастер приехал через 30 минут после звонка, очень аккуратный и вежливый. Починил мой кондиционер за 1 час. Советую!",
+              },
+            ].map((review) => (
+              <figure
+                key={review.service}
+                style={{
+                  margin: 0,
+                  padding: "1.5rem",
+                  borderRadius: "16px",
+                  border: "1px solid rgba(0, 0, 0, 0.1)",
+                  background: "#fff",
+                }}
+              >
+                <div aria-hidden="true" style={{ color: "#f59e0b", fontSize: "1.1rem" }}>
+                  ★★★★★
+                </div>
+                <blockquote style={{ margin: "0.75rem 0", fontSize: "1.05rem", lineHeight: 1.6 }}>
+                  «{review.text}»
+                </blockquote>
+                <figcaption style={{ opacity: 0.7, fontSize: "0.95rem" }}>
+                  Клиент · {review.service}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section reasons-section">
         <div className="container reasons-layout">
           <div className="reasons-intro">
