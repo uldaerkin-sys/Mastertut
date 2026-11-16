@@ -47,3 +47,5 @@ NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 - проверить доступные районы, график, способы оплаты и гарантийные сроки.
 
 Основной номер и WhatsApp: `+7 777 342 6900`.
+
+Google Tag Manager: ID задаётся переменной окружения `NEXT_PUBLIC_GTM_ID` в Vercel (сейчас `GTM-TS4T3WLB`, аккаунт Google Ads 783-659-5848).
