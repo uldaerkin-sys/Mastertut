@@ -6,8 +6,8 @@ export const siteConfig = {
   phoneDisplay: "+7 777 342 6900",
   phoneHref: "tel:+77773426900",
   phoneDigits: "77773426900",
-  whatsappDisplay: "+7 708 181 9728",
-  whatsappDigits: "77081819728",
+  whatsappDisplay: "+7 777 342 6900",
+  whatsappDigits: "77773426900",
   city: "Алматы",
   serviceArea: "Алматы и Алматинская область",
   siteUrl:
