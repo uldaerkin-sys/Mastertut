@@ -16,6 +16,40 @@ import { ServiceIcon } from "@/components/service-icon";
 import { TrackedLink } from "@/components/tracked-links";
 import { getWhatsappUrl, siteConfig } from "@/config/site";
 import { serviceBySlug, services } from "@/data/services";
+import type { ServiceAudience } from "@/data/services";
+
+const diagnosticPrice: Record<ServiceAudience, number> = {
+  home: 3000,
+  business: 5000,
+};
+
+const repairFromPrice: Record<string, number> = {
+  "remont-stiralnyh-mashin": 8000,
+  "remont-holodilnikov": 10000,
+  "remont-posudomoechnyh-mashin": 8000,
+  "remont-sushilnyh-mashin": 8000,
+  "remont-duhovyh-shkafov": 8000,
+  "remont-varochnyh-paneley": 8000,
+  "remont-vinnyh-shkafov": 12000,
+  "remont-kondicionerov": 10000,
+  "ustanovka-bytovoy-tehniki": 7000,
+  "commercial-equipment": 15000,
+  "remont-promyshlennyh-holodilnikov": 20000,
+  "remont-walk-in-cooler": 25000,
+  "remont-reach-in-holodilnikov": 15000,
+  "remont-ledogeneratorov": 15000,
+  "remont-commercial-oven": 20000,
+  "remont-friturnits": 12000,
+  "remont-griley": 12000,
+  "remont-promyshlennyh-posudomoechnyh-mashin": 15000,
+  "remont-kofemashin": 15000,
+  "remont-slush-apparatov": 15000,
+  "ustanovka-restorannogo-oborudovaniya": 20000,
+};
+
+function formatTenge(value: number) {
+  return `${String(value).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}\u00a0₸`;
+}
 
 type Props = {
   params: Promise<{ service: string }>;
@@ -60,6 +94,9 @@ export default async function ServicePage({ params }: Props) {
   }
 
   const whatsappMessage = `Здравствуйте! Нужна услуга: ${service.name.toLowerCase()}. Адрес находится в Алматы или Алматинской области.`;
+  const diagnostic = diagnosticPrice[service.audience];
+  const repairFrom = repairFromPrice[service.slug] ?? null;
+  const workLabel = service.slug.startsWith("ustanovka") ? "Установка" : "Ремонт";
   const relatedServices = service.relatedSlugs
     .map((relatedSlug) => serviceBySlug.get(relatedSlug))
     .filter((item) => item !== undefined);
@@ -78,6 +115,20 @@ export default async function ServicePage({ params }: Props) {
           "@id": `${siteConfig.siteUrl}/#business`,
         },
         url: `${siteConfig.siteUrl}/${service.slug}`,
+        ...(repairFrom
+          ? {
+              offers: {
+                "@type": "Offer",
+                priceCurrency: "KZT",
+                price: repairFrom,
+                priceSpecification: {
+                  "@type": "PriceSpecification",
+                  minPrice: repairFrom,
+                  priceCurrency: "KZT",
+                },
+              },
+            }
+          : {}),
       },
       {
         "@type": "BreadcrumbList",
@@ -135,6 +186,12 @@ export default async function ServicePage({ params }: Props) {
               </div>
               <h1>{service.title}</h1>
               <p>{service.intro}</p>
+              <p className="service-hero-price" style={{ fontWeight: 700 }}>
+                Выезд и диагностика — {formatTenge(diagnostic)}
+                {repairFrom
+                  ? ` · ${workLabel} — от ${formatTenge(repairFrom)}`
+                  : ""}
+              </p>
               <div className="hero-actions">
                 <Link href="#service-request" className="button button-primary">
                   Вызвать мастера
@@ -217,10 +274,19 @@ export default async function ServicePage({ params }: Props) {
       <section className="section service-price-section">
         <div className="container service-price-grid">
           <div>
-            <h2>От чего зависит стоимость</h2>
+            <h2>Сколько стоит</h2>
+            <p style={{ fontSize: "1.15rem", lineHeight: 1.7 }}>
+              Выезд и диагностика — <strong>{formatTenge(diagnostic)}</strong>
+              {repairFrom ? (
+                <>
+                  <br />
+                  {workLabel} — <strong>от {formatTenge(repairFrom)}</strong>
+                </>
+              ) : null}
+            </p>
             <p>
-              Точную цену нельзя честно назвать без понимания причины
-              неисправности. Мастер сообщит ее до начала работ.
+              Запчасти оплачиваются отдельно. Точную цену мастер называет
+              после диагностики, до начала работ. Она зависит от следующего:
             </p>
           </div>
           <ul>
