@@ -51,6 +51,18 @@ function formatTenge(value: number) {
   return `${String(value).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0")}\u00a0₸`;
 }
 
+function pageTitle(service: { title: string; audience: ServiceAudience }) {
+  return service.audience === "home"
+    ? service.title.replace(" в Алматы", " на дому в Алматы")
+    : service.title;
+}
+
+const brandsByAudience: Record<ServiceAudience, string> = {
+  home: "Samsung, LG, Bosch, Siemens, Electrolux, Indesit, Ariston, Beko, Haier, Midea, Gorenje, Miele, Whirlpool, Atlant и другими",
+  business:
+    "Rational, Unox, Electrolux Professional, Hoshizaki, Scotsman, Brema, Frymaster, Hobart, Winterhalter, Polair, Carboma и другими",
+};
+
 type Props = {
   params: Promise<{ service: string }>;
 };
@@ -70,13 +82,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: service.title,
+    title: pageTitle(service),
     description: service.metaDescription,
     alternates: {
       canonical: `/${service.slug}`,
     },
     openGraph: {
-      title: service.title,
+      title: pageTitle(service),
       description: service.metaDescription,
       url: `/${service.slug}`,
       type: "website",
@@ -184,7 +196,7 @@ export default async function ServicePage({ params }: Props) {
               <div className="service-page-icon">
                 <ServiceIcon name={service.icon} size={42} />
               </div>
-              <h1>{service.title}</h1>
+              <h1>{pageTitle(service)}</h1>
               <p>{service.intro}</p>
               <p className="service-hero-price" style={{ fontWeight: 700 }}>
                 Выезд и диагностика — {formatTenge(diagnostic)} (бесплатно при
@@ -241,6 +253,10 @@ export default async function ServicePage({ params }: Props) {
           <span className="section-label">Об услуге</span>
           <h2>{service.name}: диагностика, ремонт и проверка результата</h2>
           <p>{service.description}</p>
+          <p>
+            <strong>Работаем с марками:</strong>{" "}
+            {brandsByAudience[service.audience]}.
+          </p>
         </div>
         <div className="container two-column-section">
           <div>
