@@ -187,7 +187,8 @@ export default async function ServicePage({ params }: Props) {
               <h1>{service.title}</h1>
               <p>{service.intro}</p>
               <p className="service-hero-price" style={{ fontWeight: 700 }}>
-                Выезд и диагностика — {formatTenge(diagnostic)}
+                Выезд и диагностика — {formatTenge(diagnostic)} (бесплатно при
+                ремонте)
                 {repairFrom
                   ? ` · ${workLabel} — от ${formatTenge(repairFrom)}`
                   : ""}
@@ -276,7 +277,8 @@ export default async function ServicePage({ params }: Props) {
           <div>
             <h2>Сколько стоит</h2>
             <p style={{ fontSize: "1.15rem", lineHeight: 1.7 }}>
-              Выезд и диагностика — <strong>{formatTenge(diagnostic)}</strong>
+              Выезд и диагностика — <strong>{formatTenge(diagnostic)}</strong>{" "}
+              (бесплатно, если вы соглашаетесь на ремонт)
               {repairFrom ? (
                 <>
                   <br />
