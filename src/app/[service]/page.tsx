@@ -211,6 +211,10 @@ export default async function ServicePage({ params }: Props) {
               </div>
               <div className="service-trust-row">
                 <span>
+                  <CheckCircle2 aria-hidden="true" />
+                  Опыт ремонта — 12 лет
+                </span>
+                <span>
                   <Calculator aria-hidden="true" />
                   Работы согласуем заранее
                 </span>
